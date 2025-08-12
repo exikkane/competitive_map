@@ -1,0 +1,1 @@
+{style src="addons/competitive_map/styles.less"}
