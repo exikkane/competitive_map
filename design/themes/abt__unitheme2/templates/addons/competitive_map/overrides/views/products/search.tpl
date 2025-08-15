@@ -1,35 +1,17 @@
 <div id="products_search_{$block.block_id}">
-    {if $auth.user_id && $products}
-        {capture name="competitive_map_popup"}
-            <div title="{__("competitive_map_download")}" id="competitive_map_popup">
-                <p>
-                    {__("competitive_map_popup_descr")}
-                </p>
+    {capture name="competitive_map_popup"}
+        {include file="addons/competitive_map/components/form_search.tpl"}
+    {/capture}
+    <div class="competitive_map_btn">
+        {include file="common/popupbox.tpl"
+        link_text="{__("competitive_map_download")}"
+        title="{__("competitive_map_download")}"
+        id="request_dialog_competitive_map_popup_{$category_data.category_id}"
+        content=$smarty.capture.competitive_map_popup
+        link_meta="ty-btn__primary ty-btn__big ty-btn ty-float-right"
+        }
+    </div>
 
-                <form method="post" action="{"competitive_map.download"|fn_url}">
-                    {foreach from=$products key=pid item=product}
-                        <input type="hidden" name="product_ids[]" value="{$pid}">
-                    {/foreach}
-
-                    <div class="buttons-container">
-                        <button class="cm-dialog-closer ty-btn ty-btn__primary">{__("cancel")}</button>
-                        <button type="submit" class="ty-btn ty-btn__secondary ty-float-right">
-                            {__("download")}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        {/capture}
-        <div class="competitive_map_btn">
-            {include file="common/popupbox.tpl"
-            link_text="{__("competitive_map_download")}"
-            title="{__("competitive_map_download")}"
-            id="request_dialog_competitive_map_popup_{$category_data.category_id}"
-            content=$smarty.capture.competitive_map_popup
-            link_meta="ty-btn__primary ty-btn__big ty-btn ty-float-right"
-            }
-        </div>
-    {/if}
     {assign var="products_search" value="Y"}
     {$is_selected_filters = $smarty.request.features_hash}
 
