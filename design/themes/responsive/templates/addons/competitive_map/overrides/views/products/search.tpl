@@ -7,8 +7,8 @@
                 </p>
 
                 <form method="post" action="{"competitive_map.download"|fn_url}">
-                    {foreach from=$products key=pid item=product}
-                        <input type="hidden" name="product_ids[]" value="{$pid}">
+                    {foreach from=$smarty.request key=key item=value}
+                        <input type="hidden" name="params[{$key}]" value="{$value}">
                     {/foreach}
 
                     <div class="buttons-container">

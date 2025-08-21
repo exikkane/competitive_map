@@ -5,21 +5,21 @@ namespace Tygh\Addons\CompetitiveMap\Service;
 use Tygh\Enum\OutOfStockActions;
 use Tygh\Enum\YesNo;
 
-
 class ProductService
 {
     public function getFilteredProducts($params, ?string $features_hash): array
     {
         $p_data = [
             'category_id'         => $params['category_id'],
-            'pid'                 => $params['product_ids'],
             'features_hash'       => $features_hash,
             'subcats'             => YesNo::YES,
             'cid'                 => $params['category_id'],
             'features_display_on' => 'A'
         ];
 
-        [$products,] = fn_get_products($p_data);
+        $params = array_merge($params, $p_data);
+
+        [$products,] = fn_get_products($params);
 
         fn_gather_additional_products_data($products, [
             'get_features' => true,

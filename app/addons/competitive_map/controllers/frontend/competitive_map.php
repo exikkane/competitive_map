@@ -15,13 +15,15 @@ if ($mode === 'download') {
     }
 
     $parser = new RefererParser($_SERVER['HTTP_REFERER'] ?? '');
+    $params = [];
 
-    $params = [
-        'category_id' => $_REQUEST['category_id'] ?? 0,
-        'product_ids' => $_REQUEST['product_ids'] ?? 0,
-    ];
+    if (isset($_REQUEST['params'])) {
+        $params = $_REQUEST['params'];
+    } elseif (isset($_REQUEST['category_id'])) {
+        $params = ['category_id' => $_REQUEST['category_id']];
+    }
 
-    if (empty($params['category_id']) && empty($params['product_ids'])) {
+    if (empty($params)) {
         return [CONTROLLER_STATUS_NO_PAGE];
     }
 
